@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: alerts_lay
+    description: Label quality by check over the last 30 days
+    columns:
+      - name: check_name
+        description: Alert check name
+        data_tests:
+          - unique
+          - not_null
+      - name: total_alerts
+        data_tests:
+          - not_null
+      - name: labeled_alerts
+        data_tests:
+          - not_null
+
+  - name: alerts_lay_no
+    description: Alerts whose seasonal baseline is too weak over the last 30 days
+    columns:
+      - name: channel
+        data_tests:
+          - not_null
+      - name: alerts_with_weak_baseline
+        data_tests:
+          - not_null
+
+  - name: alerts_checks_twenty
+    description: Top 20 noisiest alert groups over the last 30 days
+    columns:
+      - name: check_name
+        data_tests:
+          - not_null
+      - name: noise_score
+        data_tests:
+          - not_null

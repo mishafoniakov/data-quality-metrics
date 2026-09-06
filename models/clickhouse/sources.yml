@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: dq
+    schema: dq
+    description: Data quality alerts and labels in ClickHouse
+    tables:
+      - name: alerts
+        description: Raw alert events
+      - name: alert_labels
+        description: Human labels for alerts
+      - name: baseline_seasonal
+        description: Seasonal baseline per channel and hour of week
+      - name: metrics
+        description: Metric values and denominators aligned with alert windows

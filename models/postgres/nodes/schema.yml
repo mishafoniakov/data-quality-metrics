@@ -1,0 +1,69 @@
+version: 2
+
+models:
+  - name: dataset_orphan_pct
+    description: Share of dataset nodes with no lineage edges
+    columns:
+      - name: orphan_pct
+        data_tests:
+          - not_null
+
+  - name: dataset_missing_column_pct
+    description: Share of datasets that have table-level lineage but no column-level lineage
+    columns:
+      - name: missing_column
+        data_tests:
+          - not_null
+
+  - name: collector_distribution
+    description: Node and edge counts by collector source
+    columns:
+      - name: entity_type
+        data_tests:
+          - not_null
+      - name: cnt
+        data_tests:
+          - not_null
+
+  - name: edge_ownership_conflicts
+    description: Edges claimed by more than one collector
+    columns:
+      - name: src
+        data_tests:
+          - not_null
+      - name: dst
+        data_tests:
+          - not_null
+      - name: cnt
+        data_tests:
+          - not_null
+
+  - name: collector_activity
+    description: Edge confirmations in the last 7 days by collector; lost_collection if none in 2 days
+    columns:
+      - name: source
+        data_tests:
+          - not_null
+      - name: collector_status
+        data_tests:
+          - not_null
+
+  - name: stale_edges
+    description: Edges not confirmed for 30 days while their collector is still active
+    columns:
+      - name: src
+        data_tests:
+          - not_null
+      - name: dst
+        data_tests:
+          - not_null
+      - name: source
+        data_tests:
+          - not_null
+
+  - name: marked_for_deletion_pct
+    description: Share of edges already marked for deletion
+    columns:
+      - name: marked_pct
+        data_tests:
+          - not_null

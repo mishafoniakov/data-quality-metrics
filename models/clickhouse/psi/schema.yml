@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: psi
+    description: Naive PSI of category shares vs seasonal baseline for the latest metrics window
+    columns:
+      - name: channel
+        data_tests:
+          - not_null
+      - name: psi
+        data_tests:
+          - not_null
+
+  - name: psi_shares
+    description: Smoothed category shares after top-K + __other__ collapse and volume gates
+    columns:
+      - name: channel
+        data_tests:
+          - not_null
+      - name: category
+        data_tests:
+          - not_null
+
+  - name: psi_other
+    description: >
+      PSI of category shares vs seasonal baseline with tail collapse, Laplace
+      smoothing and volume gates. Categories present only in the current window
+      or only in the profile enter the full outer join with count 0, then get
+      alpha=0.5 smoothing so ln(actual/expected) stays defined. Baseline top-3
+      categories stay named; all remaining categories on both sides fold into
+      __other__ so a long tail of rare keys cannot explode the sum. Grains with
+      actual or expected total_count below 100, or n_samples below 30, are dropped.
+    columns:
+      - name: channel
+        data_tests:
+          - not_null
+      - name: psi
+        data_tests:
+          - not_null
+
+  - name: psi_severity
+    description: PSI with info / warning / critical thresholds (0.10 and 0.25)
+    columns:
+      - name: channel
+        data_tests:
+          - not_null
+      - name: severity
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['info', 'warning', 'critical']
+
+  - name: psi_details
+    description: Duty-officer JSON payload with top category contributors for a PSI alert
+    columns:
+      - name: channel
+        data_tests:
+          - not_null
+      - name: details
+        data_tests:
+          - not_null
+      - name: severity
+        data_tests:
+          - not_null

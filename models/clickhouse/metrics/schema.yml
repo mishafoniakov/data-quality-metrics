@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: seasonality_intraday
+    description: Intraday seasonality of alerts over the last 30 days
+    columns:
+      - name: hour_of_day
+        data_tests:
+          - not_null
+      - name: minute_of_hour
+        data_tests:
+          - not_null
+      - name: alert_count
+        data_tests:
+          - not_null
+
+  - name: denominator_outliers
+    description: Alerts whose metric denominator (total_count) is below 50
+    columns:
+      - name: channel
+        data_tests:
+          - not_null
+      - name: check_name
+        data_tests:
+          - not_null
+      - name: total_count
+        data_tests:
+          - not_null
+
+  - name: latency_delay
+    description: Alerts with window latency greater than 15 minutes
+    columns:
+      - name: channel
+        data_tests:
+          - not_null
+      - name: check_name
+        data_tests:
+          - not_null
+      - name: latency_minutes
+        data_tests:
+          - not_null

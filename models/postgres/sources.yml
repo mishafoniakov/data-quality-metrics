@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: lineage
+    schema: lineage
+    description: Lineage graph of datasets, edges and columns
+    tables:
+      - name: nodes
+        description: Graph nodes
+      - name: edges
+        description: Graph edges between nodes
+      - name: columns
+        description: Column-level lineage
